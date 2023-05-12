@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products index{% endblock %}
+
+{% block sectionTitle %}all-items{% endblock %}
+
+
+{% block body %}
+
+    <h1 class="section-title">Products</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ProductPicture</th>
+                <th>ProductName</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Created_at</th>
+                {# <th>ProductDescription</th> #}
+                <th>ProductType</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td><img src="{{ product.productPicture }}" alt="{{ product.productName }}"></td>
+                <td>{{ product.productName }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.price }}</td>
+                {# <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
+                <td>{{ product.createdAt ? product.createdAt|date('d-m-Y') : '' }}</td>
+                {# <td>{{ product.productDescription }}</td> #}
+                <td>{#{ type[product.type].type  }#}</td>
+                <td>
+                    <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
+                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <pre>
+        {{ dump( products.0.type.id) }}
+
+        {{ dump(type) }}
+
+
+        {{ dump(type[products.1.type.id-1]) }}
+    </pre>
+
+    <a href="{{ path('app_products_new') }}">Create new</a>
+{% endblock %}
+
+{% block javascripts %}
+
+    {{ parent() }}
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Products index{% endblock %}
+
+{% block body %}
+    {% block showProduct %}
+        <h1>Products indexes</h1>
+
+            {% for product in products %}
+                <div class="product-item">
+                    {# <a href="product-view.php?product=<?= $products['productName'] ?>">
+                    <img class ="card-img-top" src="products/<?= $products['productPicture']?>" alt="<?= $products['productName']?>">#}
+                    <div class="inside-product-item">
+                        <h2 class="card-title">{{ product.productName }}</h2>
+                        <ul class="info">
+                            <li>Q: {{ product.quantity }}</li>
+                            <li>{{ product.price }} $</li>
+                        </ul>
+                        <ul>
+                            <li><a class="btn btn-success" href="sections/updateProduct.php?product=<?= $products['productName'] ?>">Update</a></li>
+                            <li><a class="btn btn-danger" href="functions/deleteItem.php?product=<?= $products['productName'] ?>">Delete</a></li>
+                        </ul>
+                    </div>
+                    {# </a> #}
+                    </div>
+
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.productPicture }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ product.productDescription }}</td>
+                    <td>
+                        <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
+                        <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                    <a href="{{ path('app_products_new') }}">Create new</a>
+            {% endfor %}
+    {% endblock %}
+{% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+    {% endblock %}
