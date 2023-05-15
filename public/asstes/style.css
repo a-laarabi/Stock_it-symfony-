@@ -20,6 +20,7 @@
   --box-shadow: 0 1rem 1rem var(--color-light);
 
   --padding-card: 2rem;
+  --padding-form: 2rem 8rem;
 
   --raduis-card: 2rem;
 }
@@ -49,13 +50,19 @@ body {
   grid-template-columns: 14rem auto;
 }
 
-/* a {
+a {
   color: var(--color-dark);
-} */
+}
 
 img {
   display: block;
   width: 100%;
+}
+
+button {
+  background: none;
+  border: none;
+  text-decoration: none;
 }
 
 .primary {
@@ -90,6 +97,12 @@ h3 {
 
 .section-title {
   margin-top: 3rem;
+}
+
+.center-elem {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 /* --------------------- Sidebar --------------------- */
@@ -147,9 +160,9 @@ aside .sidebar a {
   transition: all 200ms ease-in-out;
 }
 
-aside .sidebar a:last-child {
+aside .sidebar .last-child {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 4rem;
   width: 100%;
 }
 
@@ -223,6 +236,14 @@ aside .sidebar a:hover span {
   text-align: center;
 }
 
+.main .add-new-product {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  border: 3px dashed var(--color-primary);
+}
+
 /* --------------------- index Product --------------------- */
 
 .products {
@@ -287,9 +308,9 @@ aside .sidebar a:hover span {
   margin-top: 2rem;
 }
 
-.addProduct .mb-3 input,
-.addProduct .mb-3 select,
-.addProduct .mb-3 textarea {
+.addProduct input,
+.addProduct select,
+.addProduct textarea {
   padding: .5rem;
   border: none;
   background-color: var(--color-light);
@@ -350,6 +371,32 @@ aside .sidebar a:hover span {
   border-bottom: none;
 }
 
+/* --------------------- Authentication --------------------- */
+
+.authentication {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authentication form {
+  background-color: #fff;
+  padding: var(--padding-form);
+  border-radius: var(--raduis-card);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+
+}
+
+.authentication form input {
+  width: 100%;
+  padding: .5rem;
+  background-color: var(--color-light);
+  border-radius: 10px;
+
+}
+
 /* --------------------- Queries --------------------- */
 
 
@@ -383,6 +430,11 @@ aside .sidebar a:hover span {
   .all-items th:last-child,
   .all-items td:last-child {
     display: none;
+  }
+
+  .show-stuff th:last-child,
+  .show-stuff td:last-child {
+    display: table-cell;
   }
 }
 
@@ -461,5 +513,15 @@ aside .sidebar a:hover span {
   .all-items td:nth-child(3) {
     display: none;
   }
+
+  .show-stuff th:first-child,
+  .show-stuff th:last-child,
+  .show-stuff td:first-child,
+  .show-stuff td:last-child,
+  .show-stuff th:nth-child(3),
+  .show-stuff td:nth-child(3) {
+    display: table-cell;
+  }
+
 
 }
