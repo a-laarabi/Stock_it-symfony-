@@ -18,7 +18,6 @@
                 <th>Quantity</th>
                 <th>Price</th>
                 <th>Created_at</th>
-                {# <th>ProductDescription</th> #}
                 <th>ProductType</th>
                 <th>actions</th>
             </tr>
@@ -31,10 +30,8 @@
                 <td>{{ product.productName }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.price }}</td>
-                {# <td>{{ product.createdAt ? product.createdAt|date('Y-m-d H:i:s') : '' }}</td> #}
                 <td>{{ product.createdAt ? product.createdAt|date('d-m-Y') : '' }}</td>
-                {# <td>{{ product.productDescription }}</td> #}
-                <td>{#{ type[product.type].type  }#}</td>
+                <td>{{ product.type.id  }}</td>
                 <td>
                     <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
                     <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
@@ -48,16 +45,7 @@
         </tbody>
     </table>
 
-    <pre>
-        {{ dump( products.0.type.id) }}
-
-        {{ dump(type) }}
-
-
-        {{ dump(type[products.1.type.id-1]) }}
-    </pre>
-
-    <a href="{{ path('app_products_new') }}">Create new</a>
+    <a class="center-elem" href="{{ path('app_products_new') }}">Create new</a>
 {% endblock %}
 
 {% block javascripts %}
