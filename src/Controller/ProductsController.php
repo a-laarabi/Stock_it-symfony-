@@ -11,9 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use App\Repository\TypeRepository;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/products')]
+#[IsGranted('ROLE_USER')]
 class ProductsController extends AbstractController
 {
     #[Route('/', name: 'app_products_index', methods: ['GET'])]

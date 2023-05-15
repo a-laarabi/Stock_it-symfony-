@@ -19,16 +19,49 @@ class ProductsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('productPicture')
-            ->add('productName')
-            ->add('quantity')
-            ->add('price')
-            ->add('created_at')
-            ->add('productDescription')
-            ->add('type')
+            // ->add('productPicture')
+            ->add('productPicture', null, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
+
+            ->add('productName', null, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('quantity', null, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('price', null, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('created_at', null, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('productDescription', null, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
+            ->add('type', null, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
             ->add('type', EntityType::class, [
                 'class' => Type::class,
                 'choice_label' => 'type',
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
             ]);
     }
 
