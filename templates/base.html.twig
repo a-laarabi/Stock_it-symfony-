@@ -32,26 +32,48 @@
                         <span class="material-symbols-sharp"> dashboard </span>
                         <h3>Dashboard</h3>
                     </a>
-                    <a class="aside-link" href="{{ path('app_products_index') }}">
-                        <span class="material-symbols-sharp">blinds_closed</span>
-                        <h3>Products</h3>
-                    </a>
-                    <a class="aside-link" href="{{ path('app_products_new') }}">
-                        <span class="material-symbols-sharp"> add </span>
-                        <h3>Add Product</h3>
-                    </a>
-                    <a class="aside-link" href="{{ path('app_type_index') }}">
-                        <span class="material-symbols-sharp"> keyboard_capslock_badge </span>
-                        <h3>Types</h3>
-                    </a>
-                    <a class="aside-link" href="{{ path('app_type_new') }}">
-                        <span class="material-symbols-sharp"> keyboard_capslock_badge </span>
-                        <h3>Add Product type</h3>
-                    </a>
-                    <a class="aside-link" href="/">
-                        <span class="material-symbols-sharp"> person_add </span>
-                        <h3>Stuff</h3>
-                    </a>
+
+                    {% if(is_granted('ROLE_USER')) %}
+
+                        <a class="aside-link" href="{{ path('app_products_index') }}">
+                            <span class="material-symbols-sharp">blinds_closed</span>
+                            <h3>Products</h3>
+                        </a>
+                        <a class="aside-link" href="{{ path('app_products_new') }}">
+                            <span class="material-symbols-sharp"> add </span>
+                            <h3>Add Product</h3>
+                        </a>
+                        <a class="aside-link" href="{{ path('app_type_index') }}">
+                            <span class="material-symbols-sharp"> keyboard_capslock_badge </span>
+                            <h3>Types</h3>
+                        </a>
+                        <a class="aside-link" href="{{ path('app_type_new') }}">
+                            <span class="material-symbols-sharp"> keyboard_capslock_badge </span>
+                            <h3>Add Product type</h3>
+                        </a>
+                        <a class="aside-link" href="{{ path('show_stuff') }}">
+                            <span class="material-symbols-sharp"> manage_accounts </span>
+                            <h3>Stuff</h3>
+                        </a>
+
+                        <a class="last-child aside-link" href="{{ path('app_logout') }}">
+                            <span class="material-symbols-sharp"> logout </span>
+                            <h3>Log-out</h3>
+                        </a>
+
+                    {%else%}
+
+                        <a class="aside-link" href="{{ path('app_register') }}">
+                            <span class="material-symbols-sharp"> person_add </span>
+                            <h3>Register</h3>
+                        </a>
+
+                        <a class="aside-link" href="{{ path('app_login') }}">
+                            <span class="material-symbols-sharp"> login </span>
+                            <h3>Log-in</h3>
+                        </a>
+
+                    {% endif %}
                 </div>
             </aside>
 
