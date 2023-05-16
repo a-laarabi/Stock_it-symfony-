@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Products;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,11 +22,19 @@ class ProductsType extends AbstractType
     {
         $builder
             // ->add('productPicture')
-            ->add('productPicture', null, [
+            /*
+            ->add('productPicture', TextType::class, [
                 'row_attr' => ['class' => 'mb-3'],
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => 'form-control']
             ])
+            */
+            ->add('productPicture', FileType::class, [
+                'row_attr' => ['class' => 'mb-3'],
+                'label_attr' => ['class' => 'form-label'],
+                'attr' => ['class' => 'form-control']
+            ])
+
 
             ->add('productName', null, [
                 'row_attr' => ['class' => 'mb-3'],
@@ -41,11 +51,15 @@ class ProductsType extends AbstractType
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => 'form-control']
             ])
+
+            /*
             ->add('created_at', null, [
                 'row_attr' => ['class' => 'mb-3'],
                 'label_attr' => ['class' => 'form-label'],
                 'attr' => ['class' => 'form-control']
             ])
+            */
+
             ->add('productDescription', null, [
                 'row_attr' => ['class' => 'mb-3'],
                 'label_attr' => ['class' => 'form-label'],
@@ -68,6 +82,7 @@ class ProductsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
+            // 'data_class' => null,
             'data_class' => Products::class,
         ]);
     }
