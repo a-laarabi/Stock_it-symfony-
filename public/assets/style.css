@@ -87,9 +87,10 @@ h3 {
 }
 
 .btn {
-  font-weight: 500;
-  padding: 5px 10px !important;
-  /* border: none; */
+  margin-top: 5px;
+  font-weight: 400;
+  padding: 4px !important;
+  border-bottom: 1px solid black;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.2rem;
@@ -334,6 +335,11 @@ aside .sidebar a:hover span {
   display: inline-block;
   background-color: var(--color-success);
   border-color: var(--color-success);
+}
+
+.ShowAllProducts img {
+  height: 50vh;
+  object-fit: cover;
 }
 
 
