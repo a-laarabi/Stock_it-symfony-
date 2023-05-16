@@ -39,7 +39,7 @@
         {% for product in products %}
             <div class="product-item">
                 <a href="{{ path('app_products_show', {'id': product.id}) }}">
-                <img class ="card-img-top" src="{{ product.productPicture }}" alt="{{ product.productName }}">
+                <img class ="card-img-top" src="{{asset('assets/products/')}}{{product.productPicture}}" alt="{{ product.productName }}">
                 <div class="inside-product-item">
                     <h2 class="card-title">{{ product.productName }}</h2>
                     <ul class="info">

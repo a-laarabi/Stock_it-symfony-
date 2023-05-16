@@ -26,15 +26,15 @@
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
-                <td><img src="{{ product.productPicture }}" alt="{{ product.productName }}"></td>
+                <td><img src="{{asset('assets/products/')}}{{product.productPicture}}" alt="{{ product.productName }}"></td>
                 <td>{{ product.productName }}</td>
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.createdAt ? product.createdAt|date('d-m-Y') : '' }}</td>
                 <td>{{ product.type.id  }}</td>
                 <td>
-                    <a href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
+                    <a class="btn" href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
+                    <a class="btn" href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
