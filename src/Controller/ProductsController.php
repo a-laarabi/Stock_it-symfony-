@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Products;
 use App\Form\ProductsType;
+use App\Form\EditProductsType;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +35,28 @@ class ProductsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            //move the file
+            $Upload_destination = $this->getParameter('Upload_destination');
+
+            $file = $form->get('productPicture')->getData();
+            $newPictureName = uniqid("IMG-", true) . "." . $file->guessExtension();
+
+
+            $file->move($Upload_destination, $newPictureName);
+
+            $product->setProductPicture($newPictureName);
+
+            //End of moving the file
+
+            //Check the date automatically
+            $product->setCreatedAt(date("Y-m-d h:i:sa"));
+            // End date
+
             $productsRepository->save($product, true);
+
+
+
 
             return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -56,10 +78,12 @@ class ProductsController extends AbstractController
     #[Route('/{id}/edit', name: 'app_products_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Products $product, ProductsRepository $productsRepository): Response
     {
-        $form = $this->createForm(ProductsType::class, $product);
+        $form = $this->createForm(EditProductsType::class, $product);
+        // $form = $this->createForm(null, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $productsRepository->save($product, true);
 
             return $this->redirectToRoute('app_products_index', [], Response::HTTP_SEE_OTHER);
