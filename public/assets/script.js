@@ -11,3 +11,11 @@ closeMenu.addEventListener('click', () => {
   sideMenu.style.display = "none";
   openMenu.style.display = "block"
 })
+
+const getData = async () => {
+  const data = await fetch("http://localhost:8000/json_products");
+  const jsonData = await data.json();
+  console.log(jsonData);
+}
+
+getData()
