@@ -31,7 +31,7 @@
                 <td>{{ product.quantity }}</td>
                 <td>{{ product.price }}</td>
                 <td>{{ product.createdAt ? product.createdAt|date('d-m-Y') : '' }}</td>
-                <td>{{ product.type.id  }}</td>
+                <td>{{ product.type.type  }}</td>
                 <td>
                     <a class="btn" href="{{ path('app_products_show', {'id': product.id}) }}">show</a>
                     <a class="btn" href="{{ path('app_products_edit', {'id': product.id}) }}">edit</a>

@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+
+use App\Service\FileUploader;
 use App\Entity\Products;
 use App\Form\ProductsType;
 use App\Form\EditProductsType;
@@ -19,16 +22,37 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ProductsController extends AbstractController
 {
     #[Route('/', name: 'app_products_index', methods: ['GET'])]
-    public function index(ProductsRepository $productsRepository, TypeRepository $typeRepository): Response
+    public function index(ProductsRepository $productsRepository): Response
     {
         return $this->render('products/index.html.twig', [
             'products' => $productsRepository->findAll(),
-            'type' => $typeRepository->findAll(),
         ]);
     }
 
+    #[Route('/ajax', name: 'show_ajax', methods: ['GET', 'POST'])]
+    public function ajaxAction(Request $request, ProductsRepository $productsRepository) : Response
+    {
+        $products = $productsRepository->findAll();
+
+        if ($request->isXmlHttpRequest() || $request->query->get('showJson') == 1) {
+            $jsonData = array();
+            $idx = 0;
+            foreach($products as $product) {
+                $temp = array(
+                    'name' => $product->getProductName(),
+                    'price' => $product->getPrice(),
+                );
+                $jsonData[$idx++] = $temp;
+            }
+            return new JsonResponse($jsonData);
+        } else {
+            return $this->render('Ajax/index.html.twig');
+        }
+    }
+
+
     #[Route('/new', name: 'app_products_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProductsRepository $productsRepository): Response
+    public function new(Request $request, ProductsRepository $productsRepository, FileUploader $fileUploader): Response
     {
         $product = new Products();
         $form = $this->createForm(ProductsType::class, $product);
@@ -37,20 +61,30 @@ class ProductsController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             //move the file
-            $Upload_destination = $this->getParameter('Upload_destination');
+            /*
+                $Upload_destination = $this->getParameter('Upload_destination');
 
-            $file = $form->get('productPicture')->getData();
-            $newPictureName = uniqid("IMG-", true) . "." . $file->guessExtension();
+                $file = $product->getProductPicture();
+                $newPictureName = uniqid("IMG-", true) . "." . $file->guessExtension();
 
 
-            $file->move($Upload_destination, $newPictureName);
+                $file->move($Upload_destination, $newPictureName);
 
-            $product->setProductPicture($newPictureName);
+                $product->setProductPicture($newPictureName);
+            */
 
             //End of moving the file
 
+            //Using the service to upload the file
+
+                $file = $product->getProductPicture();
+                $newPictureName = $fileUploader->uploadFile($file);
+                $product->setProductPicture($newPictureName);
+
+            //End of Service
+
             //Check the date automatically
-            $product->setCreatedAt(date("Y-m-d h:i:sa"));
+                $product->setCreatedAt(date("Y-m-d h:i:sa"));
             // End date
 
             $productsRepository->save($product, true);

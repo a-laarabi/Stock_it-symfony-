@@ -1,72 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomePageController!{% endblock %}
+{% block title %}Home page{% endblock %}
 
 {% block body %}
-<section class="main">
-    <h1 class="section-title">Dashboard</h1>
+    <section class="main">
 
-    <div class="insight">
+        <h1 class="section-title">Dashboard</h1>
+        <div class="insight">
 
-        <div class="insight-products">
-        <span class="material-symbols-sharp"> precision_manufacturing </span>
-        <div class="middle">
-            <h3>Total Products</h3>
-            <h1>{{ products | length }} product{% if(products|length) > 1 %}s{% endif %}</h1>
-        </div>
-        </div>
-
-        <div class="items">
-        <span class="material-symbols-sharp"> production_quantity_limits </span>
-        <div class="middle">
-            <h3>Total items</h3>
-            <h1>100 items</h1>
-        </div>
-        </div>
-
-        <div class="sales">
-        <span class="material-symbols-sharp"> payments </span>
-        <div class="middle">
-            <h3>Total Sales</h3>
-            <h1>3000 $</h1>
-        </div>
-        </div>
-    </div>
-
-    <h1 class="section-title">Products</h1>
-    <div class="products">
-
-        {% for product in products %}
-            <div class="product-item">
-                <a href="{{ path('app_products_show', {'id': product.id}) }}">
-                <img class ="card-img-top" src="{{asset('assets/products/')}}{{product.productPicture}}" alt="{{ product.productName }}">
-                <div class="inside-product-item">
-                    <h2 class="card-title">{{ product.productName }}</h2>
-                    <ul class="info">
-                        <li>Q: {{ product.quantity }}</li>
-                        <li>{{ product.price }} $</li>
-                    </ul>
-                    {% if(is_granted('ROLE_USER')) %}
-                    <ul>
-                        <li><a class="btn btn-success" href="{{ path('app_products_edit', {'id': product.id}) }}">Update</a></li>
-                        <li><a class="btn btn-danger" href="{{ path('app_products_delete', {'id': product.id}) }}">Delete</a></li>
-                    </ul>
-                    {% endif %}
+            <div class="insight-products">
+                <span class="material-symbols-sharp"> precision_manufacturing </span>
+                <div class="middle">
+                    <h3>Total Products</h3>
+                    <h1>{{ products | length }} product{% if(products|length) > 1 %}s{% endif %}</h1>
                 </div>
-                </a>
             </div>
-        {% endfor %}
 
-        {% if(is_granted('ROLE_USER')) %}
-        <div class="product-item add-new-product">
-            <div class="inside-product-item">
-                <a href="{{ path('app_products_new') }}">
-                    <h2 class="card-title"><span class="material-symbols-sharp"> add </span></h2>
-                    <h2 class="card-title">Add new product</h2>
-                </a>
+            <div class="items">
+                <span class="material-symbols-sharp"> production_quantity_limits </span>
+                <div class="middle">
+                    <h3>Total items</h3>
+                    <h1>100 items</h1>
+                </div>
+            </div>
+
+            <div class="sales">
+                <span class="material-symbols-sharp"> payments </span>
+                <div class="middle">
+                    <h3>Total Sales</h3>
+                    <h1>3000 $</h1>
+                </div>
             </div>
         </div>
-        {% endif %}
-    </div>
-</section>
+
+
+        <h1 class="section-title">Products</h1>
+        <div class="products">
+
+            {% for product in products %}
+                <div class="product-item">
+                    <a href="{{ path('app_products_show', {'id': product.id}) }}">
+                        <img class="card-img-top" src="{{ asset('assets/products/') }}{{ product.productPicture }}"
+                             alt="{{ product.productName }}">
+                        <div class="inside-product-item">
+                            <h2 class="card-title">{{ product.productName }}</h2>
+                            <ul class="info">
+                                <li>Q: {{ product.quantity }}</li>
+                                <li>{{ product.price }} $</li>
+                            </ul>
+                            {% if(is_granted('ROLE_USER')) %}
+                                <ul>
+                                    <li><a class="btn btn-success"
+                                           href="{{ path('app_products_edit', {'id': product.id}) }}">Update</a></li>
+                                    <li><a class="btn btn-danger"
+                                           href="{{ path('app_products_delete', {'id': product.id}) }}">Delete</a></li>
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+
+            {% if(is_granted('ROLE_USER')) %}
+                <div class="product-item add-new-product">
+                    <div class="inside-product-item">
+                        <a href="{{ path('app_products_new') }}">
+                            <h2 class="card-title"><span class="material-symbols-sharp"> add </span></h2>
+                            <h2 class="card-title">Add new product</h2>
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+    </section>
 {% endblock %}
