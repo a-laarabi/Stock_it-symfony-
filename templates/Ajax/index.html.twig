@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block javascripts %}
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function(){
+            $("#loadproduct").on("click", function(event){
+                $.ajax({
+                    url:        '/ajax',
+                    type:       'GET',
+                    dataType:   'json',
+                    async:      true,
+
+                    success: function(data, status) {
+                        let e = $('<tr><th>Name</th><th>Address</th></tr>');
+                        $('#product').html('');
+                        $('#product').append(e);
+
+                        for(let i = 0; i < data.length; i++) {
+                            let product = data[i];
+                            let e = $('<tr><td id = "name"></td><td id = "price"></td></tr>');
+
+                            $('#name', e).html(product['name']);
+                            $('#price', e).html(product['price']);
+                            $('#product').append(e);
+                        }
+                    },
+                    error : function(xhr, textStatus, errorThrown) {
+                        alert('Ajax request failed.');
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .table { border-collapse: collapse; }
+        .table th, td {
+            border-bottom: 1px solid #ddd;
+            width: 250px;
+            text-align: left;
+            align: left;
+        }
+    </style>
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <a id = "loadproduct" href = "#">Load product information</a>
+    </br>
+    </br>
+
+    <table class = "table">
+        <tbody id = "product"></tbody>
+    </table>
+{% endblock %}
