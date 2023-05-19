@@ -15,7 +15,7 @@ class Products
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $productPicture = null;
+    private $productPicture = null;
 
     #[ORM\Column(length: 255)]
     private ?string $productName = null;
@@ -41,12 +41,12 @@ class Products
         return $this->id;
     }
 
-    public function getProductPicture(): ?string
+    public function getProductPicture()
     {
         return $this->productPicture;
     }
 
-    public function setProductPicture(string $productPicture): self
+    public function setProductPicture($productPicture): self
     {
         $this->productPicture = $productPicture;
 
